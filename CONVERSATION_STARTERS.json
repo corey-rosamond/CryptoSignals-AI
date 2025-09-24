@@ -2,122 +2,232 @@
   "conversation_starters": [
     {
       "id": 1,
-      "text": "What's the best crypto trade opportunity right now?",
+      "text": "What's the best crypto trade opportunity right now? (+10 points)",
       "category": "market_analysis",
-      "description": "Get current market analysis with trade recommendations",
-      "expected_response": "technical_analysis_with_signals"
+      "description": "Get current market analysis with progressive reveals and follow-ups",
+      "expected_response": "multi_step_analysis_with_hooks",
+      "engagement_score": "high"
     },
     {
       "id": 2,
-      "text": "Analyze Bitcoin for potential breakout patterns",
+      "text": "I want to start my trading streak - analyze Bitcoin!",
       "category": "technical_analysis",
-      "description": "Deep dive BTC technical analysis",
-      "expected_response": "btc_technical_breakdown"
+      "description": "BTC analysis that builds into deeper market insights",
+      "expected_response": "btc_analysis_with_progression",
+      "engagement_score": "very_high"
     },
     {
       "id": 3,
-      "text": "Help me calculate position size for $1,000 investment",
+      "text": "Help me beat the market with proper position sizing",
       "category": "risk_management",
-      "description": "Position sizing and risk management",
-      "expected_response": "risk_calculator_guidance"
+      "description": "Risk management that leads to portfolio optimization",
+      "expected_response": "risk_management_cascade",
+      "engagement_score": "high"
     },
     {
       "id": 4,
-      "text": "Show me current market sentiment indicators",
+      "text": "Show me what the whales are doing right now",
       "category": "market_psychology",
-      "description": "Market sentiment and psychology analysis",
-      "expected_response": "sentiment_analysis"
+      "description": "Whale analysis with progressive market psychology insights",
+      "expected_response": "whale_analysis_with_hooks",
+      "engagement_score": "very_high"
     },
     {
       "id": 5,
-      "text": "Start my paper trading portfolio with $10K",
+      "text": "Let's start paper trading and build my level! (+50 points)",
       "category": "paper_trading",
-      "description": "Initialize virtual trading portfolio",
-      "expected_response": "paper_trading_setup"
+      "description": "Gamified paper trading initialization with achievement tracking",
+      "expected_response": "gamified_trading_setup",
+      "engagement_score": "very_high"
     },
     {
       "id": 6,
-      "text": "What whale movements happened in the last 24 hours?",
+      "text": "I heard there's unusual whale activity - what's happening?",
       "category": "whale_alerts",
-      "description": "Recent large wallet movements",
-      "expected_response": "whale_activity_report"
+      "description": "Whale movements with market implications and follow-ups",
+      "expected_response": "whale_investigation_cascade",
+      "engagement_score": "high"
     },
     {
       "id": 7,
-      "text": "Create a risk management plan for my portfolio",
-      "category": "risk_management",
-      "description": "Comprehensive risk management strategy",
-      "expected_response": "risk_management_plan"
+      "text": "Challenge me: Can I beat your trading prediction?",
+      "category": "challenges",
+      "description": "Interactive prediction challenge with scoring",
+      "expected_response": "prediction_challenge_setup",
+      "engagement_score": "very_high"
     },
     {
       "id": 8,
-      "text": "Analyze Ethereum's technical indicators for swing trading",
+      "text": "Find me the next 10x altcoin before everyone else",
       "category": "technical_analysis",
-      "description": "ETH swing trading setup analysis",
-      "expected_response": "eth_swing_analysis"
+      "description": "Multi-coin analysis with progressive reveals",
+      "expected_response": "altcoin_discovery_journey",
+      "engagement_score": "very_high"
     },
     {
       "id": 9,
-      "text": "Help me understand Fear & Greed Index impact",
+      "text": "The market feels crazy - decode the psychology for me",
       "category": "market_psychology",
-      "description": "Fear & Greed Index education and current reading",
-      "expected_response": "fear_greed_explanation"
+      "description": "Psychology analysis with market timing insights",
+      "expected_response": "psychology_deep_dive",
+      "engagement_score": "high"
     },
     {
       "id": 10,
-      "text": "Calculate tax implications of my crypto gains",
+      "text": "Help me maximize profits while minimizing tax impact",
       "category": "tax_planning",
-      "description": "Basic crypto tax calculation guidance",
-      "expected_response": "tax_overview"
+      "description": "Tax-optimized trading strategy development",
+      "expected_response": "tax_optimization_strategy",
+      "engagement_score": "high"
+    }
+  ],
+  "engagement_starters": [
+    {
+      "id": 11,
+      "text": "What's your current trading streak? Let's extend it!",
+      "category": "gamification",
+      "description": "Streak-focused engagement with daily challenges",
+      "expected_response": "streak_building_session",
+      "engagement_score": "very_high"
+    },
+    {
+      "id": 12,
+      "text": "I want to unlock Master level - what do I need to do?",
+      "category": "gamification",
+      "description": "Level progression guidance with action plan",
+      "expected_response": "level_progression_roadmap",
+      "engagement_score": "very_high"
+    },
+    {
+      "id": 13,
+      "text": "Show me something nobody else has noticed in the market",
+      "category": "advanced_analysis",
+      "description": "Exclusive insights with progressive revelations",
+      "expected_response": "exclusive_market_insights",
+      "engagement_score": "very_high"
+    },
+    {
+      "id": 14,
+      "text": "I'm ready for today's trading challenge!",
+      "category": "daily_challenge",
+      "description": "Daily challenge initialization with scoring",
+      "expected_response": "daily_challenge_launch",
+      "engagement_score": "very_high"
+    },
+    {
+      "id": 15,
+      "text": "My friend thinks they're better at trading - prove them wrong",
+      "category": "social_competition",
+      "description": "Competitive analysis with shareable results",
+      "expected_response": "competitive_analysis_challenge",
+      "engagement_score": "very_high"
     }
   ],
   "primary_starters": [
-    "What's the best crypto trade opportunity right now?",
-    "Analyze Bitcoin for potential breakout patterns",
-    "Help me calculate position size for $1,000 investment",
-    "Show me current market sentiment indicators"
+    "What's the best crypto trade opportunity right now? (+10 points)",
+    "I want to start my trading streak - analyze Bitcoin!",
+    "Let's start paper trading and build my level! (+50 points)",
+    "Challenge me: Can I beat your trading prediction?"
+  ],
+  "engagement_focused_starters": [
+    "What's your current trading streak? Let's extend it!",
+    "Show me something nobody else has noticed in the market",
+    "Find me the next 10x altcoin before everyone else",
+    "I'm ready for today's trading challenge!",
+    "My friend thinks they're better at trading - prove them wrong"
   ],
   "categories": {
     "market_analysis": {
       "name": "Market Analysis",
-      "description": "Current market conditions and trade opportunities",
-      "icon": "📊"
+      "description": "Multi-step market analysis with progressive reveals",
+      "icon": "📊",
+      "engagement_multiplier": 2.5
     },
     "technical_analysis": {
       "name": "Technical Analysis",
-      "description": "Chart patterns and technical indicators",
-      "icon": "📈"
+      "description": "Deep technical dives with follow-up discoveries",
+      "icon": "📈",
+      "engagement_multiplier": 2.0
     },
     "risk_management": {
       "name": "Risk Management",
-      "description": "Position sizing and capital protection",
-      "icon": "🛡️"
+      "description": "Risk analysis leading to portfolio optimization",
+      "icon": "🛡️",
+      "engagement_multiplier": 1.8
     },
     "market_psychology": {
       "name": "Market Psychology",
-      "description": "Sentiment analysis and behavioral insights",
-      "icon": "🧠"
+      "description": "Psychology insights with market timing implications",
+      "icon": "🧠",
+      "engagement_multiplier": 2.2
     },
     "paper_trading": {
       "name": "Paper Trading",
-      "description": "Virtual trading and skill development",
-      "icon": "🎮"
+      "description": "Gamified trading with achievements and levels",
+      "icon": "🎮",
+      "engagement_multiplier": 3.0
     },
     "whale_alerts": {
       "name": "Whale Alerts",
-      "description": "Large wallet movements and market impact",
-      "icon": "🐋"
+      "description": "Whale tracking with market impact analysis",
+      "icon": "🐋",
+      "engagement_multiplier": 2.8
     },
     "tax_planning": {
       "name": "Tax Planning",
-      "description": "Crypto tax implications and reporting",
-      "icon": "💸"
+      "description": "Tax optimization with profit maximization",
+      "icon": "💸",
+      "engagement_multiplier": 1.5
+    },
+    "gamification": {
+      "name": "Level Up",
+      "description": "Points, streaks, achievements, and challenges",
+      "icon": "🏆",
+      "engagement_multiplier": 3.5
+    },
+    "challenges": {
+      "name": "Challenges",
+      "description": "Interactive prediction and trading challenges",
+      "icon": "🎯",
+      "engagement_multiplier": 4.0
+    },
+    "social_competition": {
+      "name": "Competition",
+      "description": "Compete with friends and community",
+      "icon": "🚀",
+      "engagement_multiplier": 3.8
+    },
+    "daily_challenge": {
+      "name": "Daily Challenge",
+      "description": "Daily trading challenges with rewards",
+      "icon": "🎆",
+      "engagement_multiplier": 4.2
+    },
+    "advanced_analysis": {
+      "name": "Exclusive Insights",
+      "description": "Advanced analysis most traders miss",
+      "icon": "🔍",
+      "engagement_multiplier": 3.2
     }
   },
   "usage_notes": {
-    "implementation": "Use these as ChatGPT conversation starter prompts",
-    "customization": "Feel free to modify based on user feedback",
-    "testing": "Test each starter to ensure appropriate response",
-    "updates": "Update based on market conditions and user needs"
+    "implementation": "Use these as ChatGPT conversation starter prompts with engagement tracking",
+    "engagement_strategy": "Prioritize high-engagement starters for new users",
+    "progression": "Start with basic starters, unlock advanced ones as users level up",
+    "testing": "Test each starter for conversation length and continuation rate",
+    "updates": "Update based on engagement metrics and user feedback",
+    "viral_mechanics": "Include shareable elements in high-scoring interactions"
+  },
+  "engagement_metrics": {
+    "target_conversations_per_session": 20,
+    "target_session_duration_minutes": 15,
+    "target_daily_return_rate": "60%",
+    "target_viral_coefficient": 1.3,
+    "success_criteria": {
+      "conversation_continuation": "75%",
+      "question_generation": "5+ follow-ups per starter",
+      "gamification_engagement": "80% participate in points system",
+      "social_sharing": "20% share achievements"
+    }
   }
 }
