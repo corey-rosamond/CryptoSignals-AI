@@ -1,0 +1,123 @@
+{
+  "conversation_starters": [
+    {
+      "id": 1,
+      "text": "What's the best crypto trade opportunity right now?",
+      "category": "market_analysis",
+      "description": "Get current market analysis with trade recommendations",
+      "expected_response": "technical_analysis_with_signals"
+    },
+    {
+      "id": 2,
+      "text": "Analyze Bitcoin for potential breakout patterns",
+      "category": "technical_analysis",
+      "description": "Deep dive BTC technical analysis",
+      "expected_response": "btc_technical_breakdown"
+    },
+    {
+      "id": 3,
+      "text": "Help me calculate position size for $1,000 investment",
+      "category": "risk_management",
+      "description": "Position sizing and risk management",
+      "expected_response": "risk_calculator_guidance"
+    },
+    {
+      "id": 4,
+      "text": "Show me current market sentiment indicators",
+      "category": "market_psychology",
+      "description": "Market sentiment and psychology analysis",
+      "expected_response": "sentiment_analysis"
+    },
+    {
+      "id": 5,
+      "text": "Start my paper trading portfolio with $10K",
+      "category": "paper_trading",
+      "description": "Initialize virtual trading portfolio",
+      "expected_response": "paper_trading_setup"
+    },
+    {
+      "id": 6,
+      "text": "What whale movements happened in the last 24 hours?",
+      "category": "whale_alerts",
+      "description": "Recent large wallet movements",
+      "expected_response": "whale_activity_report"
+    },
+    {
+      "id": 7,
+      "text": "Create a risk management plan for my portfolio",
+      "category": "risk_management",
+      "description": "Comprehensive risk management strategy",
+      "expected_response": "risk_management_plan"
+    },
+    {
+      "id": 8,
+      "text": "Analyze Ethereum's technical indicators for swing trading",
+      "category": "technical_analysis",
+      "description": "ETH swing trading setup analysis",
+      "expected_response": "eth_swing_analysis"
+    },
+    {
+      "id": 9,
+      "text": "Help me understand Fear & Greed Index impact",
+      "category": "market_psychology",
+      "description": "Fear & Greed Index education and current reading",
+      "expected_response": "fear_greed_explanation"
+    },
+    {
+      "id": 10,
+      "text": "Calculate tax implications of my crypto gains",
+      "category": "tax_planning",
+      "description": "Basic crypto tax calculation guidance",
+      "expected_response": "tax_overview"
+    }
+  ],
+  "primary_starters": [
+    "What's the best crypto trade opportunity right now?",
+    "Analyze Bitcoin for potential breakout patterns",
+    "Help me calculate position size for $1,000 investment",
+    "Show me current market sentiment indicators"
+  ],
+  "categories": {
+    "market_analysis": {
+      "name": "Market Analysis",
+      "description": "Current market conditions and trade opportunities",
+      "icon": "📊"
+    },
+    "technical_analysis": {
+      "name": "Technical Analysis",
+      "description": "Chart patterns and technical indicators",
+      "icon": "📈"
+    },
+    "risk_management": {
+      "name": "Risk Management",
+      "description": "Position sizing and capital protection",
+      "icon": "🛡️"
+    },
+    "market_psychology": {
+      "name": "Market Psychology",
+      "description": "Sentiment analysis and behavioral insights",
+      "icon": "🧠"
+    },
+    "paper_trading": {
+      "name": "Paper Trading",
+      "description": "Virtual trading and skill development",
+      "icon": "🎮"
+    },
+    "whale_alerts": {
+      "name": "Whale Alerts",
+      "description": "Large wallet movements and market impact",
+      "icon": "🐋"
+    },
+    "tax_planning": {
+      "name": "Tax Planning",
+      "description": "Crypto tax implications and reporting",
+      "icon": "💸"
+    }
+  },
+  "usage_notes": {
+    "implementation": "Use these as ChatGPT conversation starter prompts",
+    "customization": "Feel free to modify based on user feedback",
+    "testing": "Test each starter to ensure appropriate response",
+    "updates": "Update based on market conditions and user needs"
+  }
+}
