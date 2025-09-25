@@ -2,17 +2,19 @@
 
 ## 📡 DATA SOURCES OVERVIEW
 
-### Primary Data Provider: CoinGecko (FREE)
+### Primary Data Provider: CoinGecko (FREE) - LIVE via GPT Actions
 - **Cost:** $0/month
-- **API Key:** Not required for basic usage
-- **Rate Limit:** 50 calls/minute
+- **API Key:** Not required
+- **Rate Limit:** 10-50 calls/minute
+- **Integration:** Direct API calls via GPT Actions
 - **Data Provided:**
-  - Real-time cryptocurrency prices
+  - Real-time cryptocurrency prices (on-demand)
   - 24h volume and market cap
   - Price changes and percentages
-  - Top 20 cryptocurrencies
-  - Historical price data (30 days)
-- **Update Frequency:** Every 5 minutes
+  - All 10,000+ cryptocurrencies available
+  - Trending coins
+  - Global market metrics
+- **Update Frequency:** Real-time on each request
 - **Reliability:** 99.9% uptime
 
 ### Backup Data Provider: CoinMarketCap (FREE TIER)
@@ -21,12 +23,12 @@
 - **Purpose:** Fallback if CoinGecko fails
 - **Note:** Currently not active
 
-### Whale Alert System: SIMULATOR
+### Whale Alert System: Educational Examples
 - **Cost:** $0/month
-- **Type:** Educational simulation
+- **Type:** Educational examples and patterns
 - **Purpose:** Teaching market impact concepts
-- **Note:** NOT real whale data - for learning only
-- **Real Alternative:** Whale Alert API costs $99/month (not used)
+- **Note:** Educational content only - not live blockchain data
+- **Real Alternative:** Whale Alert API costs $99/month (not implemented)
 
 ---
 
@@ -53,27 +55,27 @@
 ## 🔄 UPDATE CYCLES
 
 ### Data Refresh Schedule
-- **Prices:** Every 5 minutes
-- **Market Metrics:** Every 5 minutes
-- **Whale Alerts:** Simulated on-demand
-- **Fear & Greed:** Every 60 minutes
-- **Cache TTL:** 300 seconds (5 minutes)
+- **Prices:** Real-time on every request (no caching)
+- **Market Metrics:** Real-time via Actions
+- **Whale Alerts:** Educational examples only
+- **Trending Coins:** Live from CoinGecko
+- **Global Data:** Fresh on each call
 
-### Cache Strategy
-- First request fetches from API
-- Subsequent requests use cache (5 min)
-- Cache invalidated on significant moves (>5%)
-- Fallback to stale data if APIs fail
+### GPT Actions Strategy
+- Direct API calls via Actions
+- No caching needed (fresh data always)
+- Rate limits handled by CoinGecko
+- Graceful error messages if API fails
 
 ---
 
 ## 📊 DATA ACCURACY
 
 ### Price Data
-- **Accuracy:** Within 1% of exchange prices
-- **Delay:** Maximum 5 minutes
-- **Coverage:** Top 20 cryptocurrencies
-- **Source:** Aggregated from multiple exchanges
+- **Accuracy:** Real-time from exchanges
+- **Delay:** None (live API calls)
+- **Coverage:** 10,000+ cryptocurrencies
+- **Source:** Aggregated from 600+ exchanges
 
 ### Market Metrics
 - **Market Cap:** Real-time aggregate
@@ -81,32 +83,32 @@
 - **Dominance:** BTC/ETH percentage
 - **Sentiment:** Fear & Greed Index
 
-### Whale Alerts (Simulation)
-- **Type:** Educational examples
-- **Purpose:** Demonstrate concepts
-- **Frequency:** Generated on request
-- **Disclaimer:** Not real transactions
+### Whale Alerts (Educational)
+- **Type:** Teaching examples only
+- **Purpose:** Demonstrate market concepts
+- **Frequency:** Static educational content
+- **Disclaimer:** Not real blockchain data
 
 ---
 
 ## 🛠️ TECHNICAL IMPLEMENTATION
 
-### API Integration Flow
+### GPT Actions Integration Flow
 ```
-User Request → GPT → Check Cache →
-  ├─ Cache Hit → Return Data
-  └─ Cache Miss → CoinGecko API →
-      ├─ Success → Update Cache → Return Data
-      └─ Failure → CoinMarketCap →
-          ├─ Success → Update Cache → Return Data
-          └─ Failure → Return Stale Data + Warning
+User Request → GPT → Actions API Call →
+  ├─ getCurrentPrices → CoinGecko /simple/price
+  ├─ getMarketData → CoinGecko /coins/markets
+  ├─ getGlobalData → CoinGecko /global
+  └─ getTrendingCoins → CoinGecko /search/trending
+      ↓
+  Direct Response (no caching needed)
 ```
 
 ### Error Handling
-1. **Primary API Fails:** Automatic failover to backup
-2. **All APIs Fail:** Use cached data with warning
-3. **Rate Limit Hit:** Queue and retry after cooldown
-4. **Network Issues:** Graceful degradation
+1. **API Fails:** Show graceful error message
+2. **Rate Limit Hit:** Inform user to wait briefly
+3. **Network Issues:** Suggest trying again
+4. **Invalid coin:** Suggest correct coin ID format
 
 ---
 
@@ -139,12 +141,13 @@ User Request → GPT → Check Cache →
 ## ⚠️ LIMITATIONS
 
 ### What We CAN Provide
-✅ Real-time prices (5-min delay max)
+✅ Real-time prices (live, no delay)
 ✅ Market cap and volume data
-✅ Basic technical indicators
-✅ Educational whale simulations
+✅ All 10,000+ cryptocurrencies
+✅ Educational whale examples
 ✅ Paper trading with real prices
-✅ Historical data (30 days)
+✅ Trending cryptocurrencies
+✅ Global market metrics
 
 ### What We CANNOT Provide
 ❌ Real whale transactions
@@ -193,16 +196,16 @@ cmc = CoinMarketCapAPI(api_key="your-key-here")
 ## 🎯 OPTIMIZATION TIPS
 
 ### For Better Performance
-1. Queries are cached for 5 minutes
-2. Bulk requests are more efficient
-3. Popular coins update faster
+1. Batch multiple coins in one request
+2. Use coin IDs (bitcoin) not symbols (BTC)
+3. Popular coins have more data
 4. Off-peak hours = faster response
 
 ### For Cost Efficiency
 1. Stay within free tier limits
-2. Use caching aggressively
-3. Batch similar requests
-4. Avoid unnecessary updates
+2. Batch similar requests together
+3. Avoid unnecessary repeat calls
+4. Use trending endpoint sparingly
 
 ---
 
@@ -225,30 +228,30 @@ cmc = CoinMarketCapAPI(api_key="your-key-here")
 ## 📞 SUPPORT & ISSUES
 
 ### Common Issues
-1. **"Price seems old"** - 5-minute cache delay
-2. **"Whale alert not real"** - It's educational simulation
-3. **"API error"** - Temporary, will auto-recover
-4. **"Data unavailable"** - Check if coin is top 20
+1. **"Price not updating"** - Check API status
+2. **"Whale alert not real"** - It's educational content
+3. **"API error"** - Try again in a moment
+4. **"Coin not found"** - Use full coin ID (bitcoin, not BTC)
 
 ### Troubleshooting
-- Clear cache if data seems stuck
 - Check API status at status.coingecko.com
-- Verify internet connectivity
-- Try again in 1-2 minutes
+- Verify GPT Actions are enabled
+- Use correct coin IDs from coingecko.com
+- Try again in 1-2 minutes if rate limited
 
 ---
 
 ## ✅ SUMMARY
 
 **What Users Get:**
-- Real crypto prices (FREE)
-- Market metrics (FREE)
-- Educational whale alerts (FREE)
-- Paper trading system (FREE)
+- Real-time crypto prices via GPT Actions (FREE)
+- Live market metrics (FREE)
+- Educational whale examples (FREE)
+- Paper trading with real prices (FREE)
 - Zero monthly costs
 
 **Transparency Note:**
-This GPT operates on 100% free APIs and simulations. Whale alerts are educational examples, not real blockchain data. Perfect for learning and practice, not for professional trading.
+This GPT fetches real-time data directly from CoinGecko via GPT Actions. Whale alerts are educational examples for learning purposes. Perfect for real-time analysis and paper trading practice.
 
 ---
 

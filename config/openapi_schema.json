@@ -1,0 +1,286 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CryptoSignals Real-Time Data API",
+    "description": "Fetch real-time cryptocurrency data from CoinGecko",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.coingecko.com/api/v3"
+    }
+  ],
+  "paths": {
+    "/simple/price": {
+      "get": {
+        "operationId": "getCurrentPrices",
+        "summary": "Get current prices for cryptocurrencies",
+        "description": "Fetches real-time price data for specified cryptocurrencies",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Comma-separated cryptocurrency IDs (e.g., bitcoin,ethereum,cardano)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "bitcoin,ethereum,binancecoin,cardano,solana"
+            }
+          },
+          {
+            "name": "vs_currencies",
+            "in": "query",
+            "description": "Comma-separated fiat currencies (e.g., usd,eur)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "usd"
+            }
+          },
+          {
+            "name": "include_market_cap",
+            "in": "query",
+            "description": "Include market cap in response",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "true"
+            }
+          },
+          {
+            "name": "include_24hr_vol",
+            "in": "query",
+            "description": "Include 24h volume in response",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "true"
+            }
+          },
+          {
+            "name": "include_24hr_change",
+            "in": "query",
+            "description": "Include 24h price change in response",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "true"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with price data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "bitcoin": {
+                      "type": "object",
+                      "properties": {
+                        "usd": { "type": "number" },
+                        "usd_market_cap": { "type": "number" },
+                        "usd_24h_vol": { "type": "number" },
+                        "usd_24h_change": { "type": "number" }
+                      }
+                    },
+                    "ethereum": {
+                      "type": "object",
+                      "properties": {
+                        "usd": { "type": "number" },
+                        "usd_market_cap": { "type": "number" },
+                        "usd_24h_vol": { "type": "number" },
+                        "usd_24h_change": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coins/markets": {
+      "get": {
+        "operationId": "getMarketData",
+        "summary": "Get top cryptocurrencies by market cap",
+        "description": "Fetches detailed market data for top cryptocurrencies",
+        "parameters": [
+          {
+            "name": "vs_currency",
+            "in": "query",
+            "description": "Target currency (e.g., usd)",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "usd"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "market_cap_desc",
+              "enum": ["market_cap_desc", "market_cap_asc", "volume_desc", "volume_asc"]
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of results per page (max 250)",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 250
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "sparkline",
+            "in": "query",
+            "description": "Include sparkline 7 days data",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with market data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": { "type": "string" },
+                      "symbol": { "type": "string" },
+                      "name": { "type": "string" },
+                      "current_price": { "type": "number" },
+                      "market_cap": { "type": "number" },
+                      "market_cap_rank": { "type": "integer" },
+                      "total_volume": { "type": "number" },
+                      "high_24h": { "type": "number" },
+                      "low_24h": { "type": "number" },
+                      "price_change_24h": { "type": "number" },
+                      "price_change_percentage_24h": { "type": "number" },
+                      "circulating_supply": { "type": "number" },
+                      "total_supply": { "type": "number" },
+                      "ath": { "type": "number" },
+                      "ath_change_percentage": { "type": "number" },
+                      "last_updated": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/global": {
+      "get": {
+        "operationId": "getGlobalData",
+        "summary": "Get global cryptocurrency market data",
+        "description": "Fetches global market metrics including total market cap and dominance",
+        "responses": {
+          "200": {
+            "description": "Global market data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "active_cryptocurrencies": { "type": "integer" },
+                        "markets": { "type": "integer" },
+                        "total_market_cap": {
+                          "type": "object",
+                          "properties": {
+                            "usd": { "type": "number" }
+                          }
+                        },
+                        "total_volume": {
+                          "type": "object",
+                          "properties": {
+                            "usd": { "type": "number" }
+                          }
+                        },
+                        "market_cap_percentage": {
+                          "type": "object",
+                          "properties": {
+                            "btc": { "type": "number" },
+                            "eth": { "type": "number" }
+                          }
+                        },
+                        "market_cap_change_percentage_24h_usd": { "type": "number" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search/trending": {
+      "get": {
+        "operationId": "getTrendingCoins",
+        "summary": "Get trending cryptocurrencies",
+        "description": "Fetches the top trending coins on CoinGecko",
+        "responses": {
+          "200": {
+            "description": "Trending coins data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "coins": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "item": {
+                            "type": "object",
+                            "properties": {
+                              "id": { "type": "string" },
+                              "name": { "type": "string" },
+                              "symbol": { "type": "string" },
+                              "market_cap_rank": { "type": "integer" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
