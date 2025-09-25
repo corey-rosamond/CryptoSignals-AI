@@ -140,11 +140,17 @@ When phase is VERIFIED complete:
 2. **ALWAYS be honest about completion status**
 3. **IGNORE the `/plan/` directory unless explicitly in planning mode**
 4. **DEVELOP in `/GPTs/01_Crypto_Signals/` directory ONLY**
-5. **DUAL REVENUE: GPT Store usage + Gumroad upsells**
-6. **Core features FREE to maximize usage**
-7. **Upsell Gumroad products after delivering value**
-8. **NO social media management (no Discord/Reddit/Twitter)**
-9. **Goal: 10,000+ DAU with 2-5% converting to Gumroad**
+5. **KEEP PROJECT CLEAN**:
+   - Remove test files when done
+   - Delete legacy/duplicate files
+   - Only ONE `GPT_INSTRUCTIONS.md` in `config/`
+   - Only ONE deployment guide (no duplicates)
+   - Organize files in proper directories
+6. **DUAL REVENUE: GPT Store usage + Gumroad upsells**
+7. **Core features FREE to maximize usage**
+8. **Upsell Gumroad products after delivering value**
+9. **NO social media management (no Discord/Reddit/Twitter)**
+10. **Goal: 10,000+ DAU with 2-5% converting to Gumroad**
 
 ---
 

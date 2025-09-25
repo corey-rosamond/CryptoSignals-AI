@@ -1,0 +1,32 @@
+# Private keys
+*.key
+crypto_signals_deploy_key
+crypto_signals_deploy_key.pub
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+.env
+.env.local
+
+# Node
+node_modules/
+
+# Backup files
+*.bak
+*~

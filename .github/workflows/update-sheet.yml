@@ -1,0 +1,31 @@
+name: Update Google Sheet
+
+on:
+  push:
+    paths:
+      - 'predictions.csv'
+  workflow_dispatch:  # Manual trigger option
+
+jobs:
+  update-sheet:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install google-auth google-auth-oauthlib google-auth-httplib2
+        pip install google-api-python-client pandas
+
+    - name: Update Google Sheet
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+      run: |
+        python update_sheet.py
