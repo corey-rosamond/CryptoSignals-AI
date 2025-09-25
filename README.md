@@ -1,9 +1,9 @@
 # 🚀 CryptoSignals AI - Professional Crypto Trading GPT
 
 ## 🔗 Quick Links
-- 🤖 **[Try CryptoSignals AI on ChatGPT](https://chat.openai.com/g/g-xxxxx)** ← UPDATE WITH YOUR GPT LINK
-- ☕ **[Buy Me a Coffee](https://www.buymeacoffee.com/YOUR_USERNAME)** ← UPDATE WITH YOUR USERNAME
-- 📊 **[Live Performance Tracking](#performance)** ↓ See Below
+- 🤖 **[Try CryptoSignals AI on ChatGPT](https://chat.openai.com/gpts)** - Search "CryptoSignals AI"
+- ☕ **[Buy Me a Coffee](https://buymeacoffee.com/coreyrosamond)** - Support Development
+- 📊 **[Live Performance Tracking](#current-performance)** - See Below
 
 ---
 
