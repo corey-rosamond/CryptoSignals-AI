@@ -46,9 +46,10 @@ Welcome AI! This is your navigation hub for the CryptoSignals AI GPT project. Re
 - Never develop in the .ai directory (this is documentation only)
 - The .ai directory is for planning and tracking only
 
-**🚨 CRITICAL: GPT Instructions Character Limit**
+**🚨 CRITICAL: GPT Character Limits**
 - **GPT Instructions MUST be under 8,000 characters**
-- `GPT_INSTRUCTIONS.md` is now optimized at 4,734 characters (compliant)
+- **GPT Description MUST be under 300 characters** (Platform limit!)
+- `GPT_INSTRUCTIONS.md` is now optimized at 5,200 characters (compliant)
 - Detailed protocols moved to knowledge files:
   - `Engagement_System.md` - Complete conversation multiplication system
   - `Gamification_System.md` - Full point/level/achievement system
