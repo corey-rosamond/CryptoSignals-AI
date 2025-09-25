@@ -1,0 +1,80 @@
+name: 📊 Track Prediction
+description: Log a new trading prediction
+title: "[PRED] "
+labels: ["prediction"]
+body:
+  - type: input
+    id: asset
+    attributes:
+      label: Asset
+      description: Trading pair (e.g., BTC/USD)
+      placeholder: BTC/USD
+    validations:
+      required: true
+
+  - type: dropdown
+    id: signal
+    attributes:
+      label: Signal
+      options:
+        - BUY
+        - SELL
+        - HOLD
+    validations:
+      required: true
+
+  - type: input
+    id: entry
+    attributes:
+      label: Entry Price
+      description: Entry price for the trade
+      placeholder: 45000
+    validations:
+      required: true
+
+  - type: input
+    id: target
+    attributes:
+      label: Target Price
+      description: Take profit target
+      placeholder: 47000
+    validations:
+      required: true
+
+  - type: input
+    id: stoploss
+    attributes:
+      label: Stop Loss
+      description: Stop loss price
+      placeholder: 43000
+    validations:
+      required: true
+
+  - type: input
+    id: confidence
+    attributes:
+      label: Confidence %
+      description: Confidence level (0-100)
+      placeholder: 85
+    validations:
+      required: true
+
+  - type: dropdown
+    id: timeframe
+    attributes:
+      label: Timeframe
+      options:
+        - 1H
+        - 4H
+        - 6H
+        - 1D
+        - 1W
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Analysis notes or reasoning
+      placeholder: Bullish flag pattern on 4H chart

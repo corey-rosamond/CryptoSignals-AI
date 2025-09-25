@@ -1,0 +1,255 @@
+name: Update Statistics
+
+on:
+  schedule:
+    # Run every day at midnight UTC
+    - cron: '0 0 * * *'
+
+  # Also allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  update_stats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas
+
+      - name: Update Performance Statistics
+        run: |
+          python << 'EOF'
+          import pandas as pd
+          import json
+          from datetime import datetime, timedelta
+
+          # Read performance data
+          df = pd.read_csv('data/performance.csv')
+
+          # Calculate overall statistics
+          completed = df[df['Result'].isin(['WIN', 'LOSS'])]
+          pending = df[df['Result'] == 'PENDING']
+
+          # Check for stale pending predictions (>7 days old)
+          for idx, row in pending.iterrows():
+              pred_date = pd.to_datetime(row['Date'])
+              if (datetime.now() - pred_date).days > 7:
+                  print(f"⚠️ Stale prediction: {row['ID']} from {row['Date']}")
+
+          # Calculate metrics
+          total_predictions = len(df)
+          total_completed = len(completed)
+          wins = len(completed[completed['Result'] == 'WIN'])
+          losses = len(completed[completed['Result'] == 'LOSS'])
+
+          accuracy = (wins / total_completed * 100) if total_completed > 0 else 0
+
+          # Calculate ROI
+          roi_values = []
+          for roi in completed['ROI'].dropna():
+              if isinstance(roi, str):
+                  roi_values.append(float(roi.rstrip('%')))
+              else:
+                  roi_values.append(float(roi))
+
+          avg_roi = sum(roi_values) / len(roi_values) if roi_values else 0
+
+          # Calculate by timeframe
+          timeframe_stats = {}
+          for tf in df['Timeframe'].unique():
+              tf_data = completed[completed['Timeframe'] == tf]
+              if len(tf_data) > 0:
+                  tf_wins = len(tf_data[tf_data['Result'] == 'WIN'])
+                  tf_accuracy = (tf_wins / len(tf_data)) * 100
+                  timeframe_stats[tf] = {
+                      'accuracy': f"{tf_accuracy:.1f}%",
+                      'count': len(tf_data)
+                  }
+
+          # Calculate by asset
+          asset_stats = {}
+          for asset in df['Asset'].unique():
+              asset_data = completed[completed['Asset'] == asset]
+              if len(asset_data) > 0:
+                  asset_wins = len(asset_data[asset_data['Result'] == 'WIN'])
+                  asset_accuracy = (asset_wins / len(asset_data)) * 100
+                  asset_stats[asset] = {
+                      'accuracy': f"{asset_accuracy:.1f}%",
+                      'count': len(asset_data)
+                  }
+
+          # Create comprehensive stats
+          stats = {
+              'last_updated': datetime.now().isoformat(),
+              'overall': {
+                  'total_predictions': total_predictions,
+                  'completed': total_completed,
+                  'pending': len(pending),
+                  'wins': wins,
+                  'losses': losses,
+                  'accuracy': f"{accuracy:.1f}%",
+                  'avg_roi': f"{avg_roi:.2f}%"
+              },
+              'by_timeframe': timeframe_stats,
+              'by_asset': asset_stats,
+              'recent_performance': {
+                  'last_7_days': {},
+                  'last_30_days': {}
+              }
+          }
+
+          # Calculate recent performance
+          for days, key in [(7, 'last_7_days'), (30, 'last_30_days')]:
+              cutoff = datetime.now() - timedelta(days=days)
+              recent = completed[pd.to_datetime(completed['Date']) > cutoff]
+              if len(recent) > 0:
+                  recent_wins = len(recent[recent['Result'] == 'WIN'])
+                  recent_accuracy = (recent_wins / len(recent)) * 100
+                  stats['recent_performance'][key] = {
+                      'predictions': len(recent),
+                      'wins': recent_wins,
+                      'accuracy': f"{recent_accuracy:.1f}%"
+                  }
+
+          # Save statistics
+          with open('data/statistics.json', 'w') as f:
+              json.dump(stats, f, indent=2)
+
+          print("📊 Performance Statistics Updated:")
+          print(f"Overall Accuracy: {accuracy:.1f}%")
+          print(f"Total Predictions: {total_predictions}")
+          print(f"Wins: {wins} | Losses: {losses}")
+          print(f"Average ROI: {avg_roi:.2f}%")
+          print(f"Pending: {len(pending)}")
+          EOF
+
+      - name: Update README Statistics
+        run: |
+          python << 'EOF'
+          import json
+          import re
+
+          # Load statistics
+          with open('data/statistics.json', 'r') as f:
+              stats = json.load(f)
+
+          # Read README
+          with open('README.md', 'r') as f:
+              readme = f.read()
+
+          # Update accuracy in README
+          accuracy = stats['overall']['accuracy']
+          total = stats['overall']['total_predictions']
+          wins = stats['overall']['wins']
+
+          # Update the stats section
+          readme = re.sub(
+              r'✅ \*\*[\d.]+% Accuracy\*\* \(\d+\+ predictions\)',
+              f'✅ **{accuracy} Accuracy** ({total}+ predictions)',
+              readme
+          )
+
+          # Update live stats section
+          readme = re.sub(
+              r'- ✅ \*\*[\d.]+% Accuracy\*\* \(\d+\+ predictions\)',
+              f'- ✅ **{accuracy} Accuracy** ({total} predictions)',
+              readme
+          )
+
+          # Write updated README
+          with open('README.md', 'w') as f:
+              f.write(readme)
+
+          print(f"✅ README updated with {accuracy} accuracy")
+          EOF
+
+      - name: Generate Performance Badge
+        run: |
+          python << 'EOF'
+          import json
+
+          with open('data/statistics.json', 'r') as f:
+              stats = json.load(f)
+
+          accuracy = float(stats['overall']['accuracy'].rstrip('%'))
+
+          # Determine badge color
+          if accuracy >= 80:
+              color = "brightgreen"
+          elif accuracy >= 70:
+              color = "green"
+          elif accuracy >= 60:
+              color = "yellow"
+          else:
+              color = "red"
+
+          # Create badge JSON for shields.io
+          badge = {
+              "schemaVersion": 1,
+              "label": "Accuracy",
+              "message": stats['overall']['accuracy'],
+              "color": color
+          }
+
+          with open('data/accuracy_badge.json', 'w') as f:
+              json.dump(badge, f)
+          EOF
+
+      - name: Commit Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/statistics.json data/accuracy_badge.json README.md
+          git commit -m "🤖 Update performance statistics - $(date +'%Y-%m-%d')" || echo "No changes"
+          git push
+
+      - name: Create Weekly Report Issue (Sundays only)
+        if: github.event.schedule && contains('0', format('{0}', github.run_number))
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const stats = JSON.parse(fs.readFileSync('data/statistics.json', 'utf8'));
+
+            const report = `# 📊 Weekly Performance Report
+
+            ## Overall Statistics
+            - **Accuracy**: ${stats.overall.accuracy}
+            - **Total Predictions**: ${stats.overall.total_predictions}
+            - **Wins**: ${stats.overall.wins}
+            - **Losses**: ${stats.overall.losses}
+            - **Average ROI**: ${stats.overall.avg_roi}
+
+            ## Last 7 Days
+            ${JSON.stringify(stats.recent_performance.last_7_days, null, 2)}
+
+            ## Best Performing Assets
+            ${Object.entries(stats.by_asset)
+              .sort((a, b) => parseFloat(b[1].accuracy) - parseFloat(a[1].accuracy))
+              .slice(0, 5)
+              .map(([asset, data]) => `- ${asset}: ${data.accuracy} (${data.count} trades)`)
+              .join('\n')}
+
+            ---
+            *Automated report generated by GitHub Actions*`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Weekly Performance Report - ${new Date().toISOString().split('T')[0]}`,
+              body: report,
+              labels: ['report', 'automated']
+            });

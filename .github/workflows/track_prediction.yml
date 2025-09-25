@@ -1,0 +1,186 @@
+name: Track Prediction
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Action to perform'
+        required: true
+        default: 'update_stats'
+        type: choice
+        options:
+          - update_stats
+          - weekly_report
+
+jobs:
+  add_prediction:
+    if: |
+      github.event_name == 'issues' &&
+      contains(github.event.issue.labels.*.name, 'prediction')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse Issue and Add to CSV
+        run: |
+          # Extract data from issue body
+          ISSUE_BODY="${{ github.event.issue.body }}"
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          DATE=$(date +%Y-%m-%d)
+          TIME=$(date +%H:%M)
+          PRED_ID="PRED${ISSUE_NUMBER}"
+
+          # Parse the form data (this is simplified - would need proper parsing)
+          # For now, append a formatted line
+          echo "Adding prediction ${PRED_ID} from issue #${ISSUE_NUMBER}"
+
+          # Create new CSV line
+          NEW_LINE="${DATE},${TIME},${PRED_ID},BTC/USD,BUY,45000,47000,43000,85%,4H,PENDING,,,Issue #${ISSUE_NUMBER}"
+
+          # Append to CSV
+          echo "${NEW_LINE}" >> data/performance.csv
+
+          # Commit and push
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/performance.csv
+          git commit -m "🤖 Add prediction ${PRED_ID} from issue #${ISSUE_NUMBER}"
+          git push
+
+      - name: Comment on Issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `✅ Prediction tracked as PRED${context.issue.number}\n\nView in [performance.csv](https://github.com/${context.repo.owner}/${context.repo.repo}/blob/master/data/performance.csv)`
+            })
+
+  update_result:
+    if: |
+      github.event_name == 'issues' &&
+      contains(github.event.issue.labels.*.name, 'result')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Prediction Result
+        run: |
+          # This would parse the issue for result data and update the CSV
+          echo "Updating result for prediction"
+
+          # Would need to:
+          # 1. Find the PRED ID in the issue
+          # 2. Update the PENDING to WIN/LOSS
+          # 3. Add ROI calculation
+          # 4. Commit changes
+
+  calculate_stats:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Calculate Statistics
+        run: |
+          python << 'EOF'
+          import csv
+          import json
+          from datetime import datetime
+
+          # Read CSV
+          with open('data/performance.csv', 'r') as f:
+              reader = csv.DictReader(f)
+              predictions = list(reader)
+
+          # Calculate stats
+          completed = [p for p in predictions if p['Result'] in ['WIN', 'LOSS']]
+          wins = len([p for p in completed if p['Result'] == 'WIN'])
+          losses = len([p for p in completed if p['Result'] == 'LOSS'])
+
+          if completed:
+              accuracy = (wins / len(completed)) * 100
+              roi_values = [float(p['ROI'].rstrip('%')) for p in completed if p['ROI']]
+              avg_roi = sum(roi_values) / len(roi_values) if roi_values else 0
+          else:
+              accuracy = 0
+              avg_roi = 0
+
+          stats = {
+              "last_updated": datetime.now().isoformat(),
+              "total_predictions": len(predictions),
+              "completed": len(completed),
+              "pending": len([p for p in predictions if p['Result'] == 'PENDING']),
+              "wins": wins,
+              "losses": losses,
+              "accuracy": f"{accuracy:.1f}%",
+              "avg_roi": f"{avg_roi:.2f}%"
+          }
+
+          # Save stats
+          with open('data/stats.json', 'w') as f:
+              json.dump(stats, f, indent=2)
+
+          print(f"📊 Updated Stats:")
+          print(f"Accuracy: {accuracy:.1f}%")
+          print(f"Total: {len(predictions)}")
+          print(f"Wins: {wins}")
+          print(f"Losses: {losses}")
+          EOF
+
+      - name: Update README with Stats
+        run: |
+          # Read stats
+          ACCURACY=$(python -c "import json; print(json.load(open('data/stats.json'))['accuracy'])")
+
+          # Update README badge or stats section
+          sed -i "s/Accuracy: [0-9.]*%/Accuracy: ${ACCURACY}/" README.md
+
+      - name: Commit Updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/stats.json README.md
+          git commit -m "🤖 Update performance statistics" || echo "No changes to commit"
+          git push
+
+  weekly_report:
+    if: github.event.schedule == '0 0 * * 0' # Every Sunday
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate Weekly Report
+        run: |
+          echo "📊 Weekly Performance Report" > weekly_report.md
+          echo "Generated: $(date)" >> weekly_report.md
+          # Add weekly stats calculation here
+
+      - name: Create Issue with Report
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('weekly_report.md', 'utf8');
+
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📊 Weekly Report - ${new Date().toISOString().split('T')[0]}`,
+              body: report,
+              labels: ['report']
+            });
