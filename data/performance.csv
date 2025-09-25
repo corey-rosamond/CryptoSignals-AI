@@ -20,3 +20,4 @@ Date,Time,ID,Asset,Signal,Entry,Target,StopLoss,Confidence,Timeframe,Result,Actu
 2024-09-24,03:00,PRED505,BTC/USD,BUY,45000,46500,44000,85%,4H,WIN,46750,3.89%,Strong RSI divergence
 2024-09-24,01:30,PRED504,ETH/USD,HOLD,2800,2850,2750,70%,1D,PENDING,,,Consolidation phase
 2025-09-25,15:20,PRED505,DOGE/USD,HOLD,0.0577,0.0594,0.056,79%,6H,PENDING,,,Range-bound trading
+2025-09-25,15:35,PRED524,BTC/USD,SELL,112200,109500,113200,79%,4H,PENDING,,,Rejection at resistance ~113k with weakening momentum suggests downside continuation.
