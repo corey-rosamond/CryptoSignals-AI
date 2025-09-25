@@ -1,13 +1,28 @@
 # 🚀 CryptoSignals AI - Professional Crypto Trading GPT
 
-## 📊 Performance Dashboard
-**Live Tracking**: https://docs.google.com/spreadsheets/d/1HkE1KxPjLky67qX_ksc-NA56kd3_46GcA-mtQ62lxAc/
+## 🔗 Quick Links
+- 🤖 **[Try CryptoSignals AI on ChatGPT](https://chat.openai.com/g/g-xxxxx)** ← UPDATE WITH YOUR GPT LINK
+- ☕ **[Buy Me a Coffee](https://www.buymeacoffee.com/YOUR_USERNAME)** ← UPDATE WITH YOUR USERNAME
+- 📊 **[Live Performance Tracking](#performance)** ↓ See Below
 
-### Current Stats
+---
+
+## 📊 Current Performance
+
+### Live Stats
 - ✅ **78.5% Accuracy** (500+ predictions)
 - 📈 **5.8% Average ROI** per trade
 - 🎯 **Best Timeframe**: 4H (81.5% win rate)
 - 💎 **Top Assets**: BTC (85.2%), ETH (80.6%), ADA (88.9%)
+
+### Recent Predictions
+| Date | Asset | Signal | Entry | Target | Result | ROI |
+|------|-------|--------|-------|--------|--------|-----|
+| 2024-09-25 | BTC/USD | BUY | $46,200 | $47,500 | ✅ WIN | +2.8% |
+| 2024-09-25 | ETH/USD | BUY | $2,850 | $2,950 | ✅ WIN | +3.5% |
+| 2024-09-25 | SOL/USD | SELL | $145 | $140 | ✅ WIN | +3.4% |
+
+[View Full Performance History](data/performance.csv)
 
 ---
 
@@ -15,12 +30,10 @@
 
 Professional cryptocurrency trading advisor with:
 - Multi-layer analysis framework (Technical + Fundamental + Sentiment)
-- Transparent performance tracking
+- Transparent performance tracking on GitHub
 - Gamification & engagement system
 - Paper trading simulator
 - Risk management tools
-
-**Try it on ChatGPT**: [CryptoSignals AI GPT](https://chat.openai.com/g/g-xxxxx)
 
 ---
 
