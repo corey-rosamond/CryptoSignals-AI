@@ -56,7 +56,7 @@ Viral Loops: Win → Share → Friend joins → Friend wins → Friend shares
 ## 📊 Current Performance
 
 ### Live Stats
-- ✅ **78.5% Accuracy** (500+ predictions)
+- ✅ **86.7% Accuracy** (22 predictions)
 - 📈 **5.8% Average ROI** per trade
 - 🎯 **Best Timeframe**: 4H (81.5% win rate)
 - 💎 **Top Assets**: BTC (85.2%), ETH (80.6%), ADA (88.9%)
