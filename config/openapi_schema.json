@@ -16,6 +16,7 @@
         "operationId": "getCurrentPrices",
         "summary": "Get current prices for cryptocurrencies",
         "description": "Fetches real-time price data for specified cryptocurrencies",
+        "x-openai-isConsequential": false,
         "parameters": [
           {
             "name": "ids",
@@ -107,6 +108,7 @@
         "operationId": "getMarketData",
         "summary": "Get top cryptocurrencies by market cap",
         "description": "Fetches detailed market data for top cryptocurrencies",
+        "x-openai-isConsequential": false,
         "parameters": [
           {
             "name": "vs_currency",
@@ -201,6 +203,7 @@
         "operationId": "getGlobalData",
         "summary": "Get global cryptocurrency market data",
         "description": "Fetches global market metrics including total market cap and dominance",
+        "x-openai-isConsequential": false,
         "responses": {
           "200": {
             "description": "Global market data",
@@ -249,6 +252,7 @@
         "operationId": "getTrendingCoins",
         "summary": "Get trending cryptocurrencies",
         "description": "Fetches the top trending coins on CoinGecko",
+        "x-openai-isConsequential": false,
         "responses": {
           "200": {
             "description": "Trending coins data",

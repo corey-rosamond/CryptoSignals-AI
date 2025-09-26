@@ -1,0 +1,51 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Simple Crypto API",
+    "description": "Get cryptocurrency prices",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.binance.com/api/v3"
+    }
+  ],
+  "paths": {
+    "/ticker/price": {
+      "get": {
+        "operationId": "getPrice",
+        "summary": "Get current price",
+        "description": "Get current price for a cryptocurrency",
+        "x-openai-isConsequential": false,
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "query",
+            "description": "Trading pair symbol (e.g., BTCUSDT)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "BTCUSDT"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Price data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "symbol": {"type": "string"},
+                    "price": {"type": "string"}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
