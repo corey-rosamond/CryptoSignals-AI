@@ -136,18 +136,20 @@ Our signals are generated using a multi-layer approach:
 - Influencer selling
 - Community discord
 
-### Whale Activity (Simulated)
-**Bullish Signals:**
-- Large accumulation patterns
-- Exchange outflows
-- Long-term holding increase
-- Smart money buying
+### Whale Activity (Educational Concepts Only)
+**Note: We explain these concepts but DO NOT provide fake whale data**
 
-**Bearish Signals:**
-- Distribution patterns
-- Exchange inflows
-- Profit-taking activity
-- Smart money selling
+**Bullish Patterns to Understand:**
+- What accumulation patterns mean (education only)
+- Why exchange outflows matter (theory)
+- Long-term holding concepts (no fake data)
+- Smart money behavior (educational)
+
+**Bearish Patterns to Understand:**
+- What distribution patterns indicate (theory)
+- Exchange inflow implications (education)
+- Profit-taking concepts (no simulation)
+- Smart money exit strategies (educational)
 
 ---
 

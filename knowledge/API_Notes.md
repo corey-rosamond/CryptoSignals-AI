@@ -23,12 +23,13 @@
 - **Purpose:** Fallback if CoinGecko fails
 - **Note:** Currently not active
 
-### Whale Alert System: Educational Examples
+### Whale Alert Education: Concepts Only
 - **Cost:** $0/month
-- **Type:** Educational examples and patterns
+- **Type:** Educational explanations only
 - **Purpose:** Teaching market impact concepts
-- **Note:** Educational content only - not live blockchain data
-- **Real Alternative:** Whale Alert API costs $99/month (not implemented)
+- **IMPORTANT:** We DO NOT provide fake whale alerts
+- **Note:** Real Whale Alert API costs $99/month (not implemented)
+- **Policy:** Explain whale concepts but NEVER simulate data
 
 ---
 
@@ -39,7 +40,7 @@
 |---------|------|--------|
 | CoinGecko API | $0 | Active |
 | CoinMarketCap | $0 | Standby |
-| Whale Simulator | $0 | Active |
+| Whale Education | $0 | Concepts Only |
 | Paper Trading | $0 | Active |
 | **TOTAL** | **$0/month** | ✅ |
 
@@ -130,11 +131,11 @@ User Request → GPT → Actions API Call →
 - Number of active cryptocurrencies
 - Market trend indicators
 
-### Simulated Data (Educational)
-- Whale movements >$1M
-- Exchange inflow/outflow
-- Large holder activity
-- Smart money indicators
+### Educational Concepts Only (NOT PROVIDED AS DATA)
+- Whale movements concepts (explain but don't simulate)
+- Exchange flow patterns (educational only)
+- Large holder behavior (theory only)
+- Smart money concepts (no fake data)
 
 ---
 
